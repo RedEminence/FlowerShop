@@ -1,0 +1,61 @@
+﻿@model IEnumerable<FlowerShop.Models.Order>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Email пользователя
+            </th>
+            <th>
+                Букет
+            </th>
+            <th>
+               Дата создания заказа
+            </th>
+            <th>
+                @{
+                    var sortOrder = (string)ViewData["SortOrder"] == "date_desc" ? "date_asc" : "date_desc"; 
+                }
+                <a asp-action="Index" asp-route-sortOrder="@sortOrder">
+                    Дата Доставки
+                </a>
+            </th>
+            <th>
+               Адрес доставки
+            </th>
+            <th>
+               Статус
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bouquet.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliverAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

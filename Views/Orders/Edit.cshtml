@@ -1,0 +1,53 @@
+﻿@model FlowerShop.Models.Order
+
+@{
+    ViewData["Title"] = "Изменение заказа";
+}
+
+<h1>Изменить</h1>
+
+<h4>Заказ</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div>
+           <p>Почта покупателя: @Html.DisplayFor(model => model.User.Email)</p>
+           <p>Название букета: @Html.DisplayFor(model => model.Bouquet.Name)</p>
+        </div>
+        <br />
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="DeliverAt" class="control-label">Время доставки</label>
+                <input asp-for="DeliverAt" class="form-control" />
+                <span asp-validation-for="DeliverAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Адрес</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <select asp-for="StatusId">
+
+                @foreach(var status in ViewData["OrderStatuses"] as IEnumerable<OrderStatus>)
+                {
+                    var isSelected = status.Id == Model.StatusId;
+
+                    @: <option @(isSelected ? " selected" : "") value=@status.Id>@status.Name</option>
+                }
+            </select>
+            <div class="form-group">
+                <input type="submit" value="Изменить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

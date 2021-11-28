@@ -1,0 +1,77 @@
+﻿@model FlowerShop.ViewModels.OrderCreate
+
+@{
+    ViewData["Title"] = "Заказ букета";
+}
+
+<h1>Сделать заказ</h1>
+
+<hr />
+@if (ViewData["Bouquet"] != null)
+{
+    var bouquet = (Bouquet)ViewData["Bouquet"];
+
+    <div class="row flex-column">
+        <div class="col md-4">
+              <div class="card" style="width: 18rem;">
+                    <img src="~/images/@(bouquet.Image)" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">@(bouquet.Name)</h5>
+                      <p class="card-text">@(bouquet.Description)</p>
+                      <p>В букете: </p>
+                      <ul>
+                        @foreach (var composition in bouquet.FlowerBouquets)
+                        {
+                            <li>@($"{composition.Flower.Name} - {composition.FlowerCount} шт.")</li>
+                        }
+                      </ul>
+                      <h6 class="card-subtitle mb-2"><b>@(bouquet.Price) р. </b></h6>
+                    </div>
+              </div>
+       </div>
+       <br />
+       @if(User.Identity.IsAuthenticated)
+       {
+        <div class="col-md-4">
+            <form asp-action="Create" asp-route-bouquetId=@(bouquet.Id)>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label">Адрес доставки</label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DeliverAt" class="control-label">Дата доставки</label>
+                    <input asp-for="DeliverAt" class="form-control" />
+                    <span asp-validation-for="DeliverAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Заказать" class="btn btn-primary" />
+                </div>
+            </form>
+            </div>
+        } else
+        {
+            <div class="col-md-4">
+                <div class="alert alert-warning" role="alert">
+                    Войдите на сайт, чтобы сделать заказ
+                </div>
+            </div>
+        }
+    </div>
+} else
+{
+    <div class="card">
+          <div class="card-body">
+              <p>Вы не выбрали букет</p>
+         </div>
+    </div>
+}
+<br />
+<div>
+    <a asp-controller="Bouquets" asp-action="Index">К букетам</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

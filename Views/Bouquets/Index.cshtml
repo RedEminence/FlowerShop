@@ -1,0 +1,30 @@
+﻿@model IEnumerable<FlowerShop.Models.Bouquet>
+
+@{
+    ViewData["Title"] = "Букеты";
+}
+
+<h1>Заказ букетов</h1>
+<br />
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model) {
+        <div class="col">
+              <div class="card">
+                    <img src="~/images/@Html.DisplayFor(modelItem => item.Image)" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                      <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                      <p>В букете: </p>
+                      <ul>
+                        @foreach (var composition in item.FlowerBouquets)
+                        {
+                            <li>@($"{composition.Flower.Name} - {composition.FlowerCount} шт.")</li>
+                        }
+                      </ul>
+                      <h6 class="card-subtitle mb-2"><b>@Html.DisplayFor(modelItem => item.Price) р. </b></h6>
+                      <a class="btn btn-primary" asp-area="" asp-route-bouquetId=@(item.Id) asp-controller="Orders" asp-action="Create">Заказать</a>
+                    </div>
+              </div>
+       </div>
+            }
+ </div>

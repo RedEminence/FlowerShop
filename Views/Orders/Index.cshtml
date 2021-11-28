@@ -1,0 +1,15 @@
+﻿@model IEnumerable<FlowerShop.Models.Order>
+
+@{
+    ViewData["Title"] = "Заказы";
+}
+
+<h1>Заказы</h1>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
+{
+   @await Html.PartialAsync("~/Views/Orders/_ManagerIndex.cshtml", Model)
+} else
+{
+   @await Html.PartialAsync("~/Views/Orders/_ClientIndex.cshtml", Model)
+}

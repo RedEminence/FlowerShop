@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FlowerShop.Models.Order>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Букет
+            </th>
+            <th>
+               Дата доставки
+            </th>
+            <th>
+               Адрес доставки
+            </th>
+            <th>
+               Статус
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bouquet.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliverAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+             <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,53 @@
+﻿@model FlowerShop.Models.Order
+
+@{
+    ViewData["Title"] = "Подробности о заказе";
+}
+
+<h1>Подробности</h1>
+
+<div>
+    <h4>Заказ</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Почта пользователя
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            Букет
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bouquet.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Адрес доставки
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            Дата создания
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            Дата доставки
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DeliverAt)
+        </dd>
+        <dt class = "col-sm-2">
+            Статус
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
